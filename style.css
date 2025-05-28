@@ -1,0 +1,810 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+/* Light Theme Section - Password Generator */
+.light-theme-section {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 25%, #c084fc 50%, #d8b4fe 75%, #e9d5ff 100%);
+    background-attachment: fixed;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.light-theme-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    z-index: 0;
+    animation: backgroundShift 20s ease-in-out infinite;
+}
+
+/* Dark Theme Section - Password Checker */
+.dark-theme-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    background-attachment: fixed;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.dark-theme-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(130, 227, 231, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(130, 227, 231, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(130, 227, 231, 0.03) 0%, transparent 50%);
+    z-index: 0;
+    animation: backgroundShift 20s ease-in-out infinite;
+}
+
+
+
+@keyframes backgroundShift {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(-5px) translateY(-10px); }
+    50% { transform: translateX(10px) translateY(5px); }
+    75% { transform: translateX(-3px) translateY(8px); }
+}
+
+/* Light Theme Styles */
+.light-theme-section h1 {
+    font-weight: 600;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    animation: lightTitleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes lightTitleGlow {
+    0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    100% { text-shadow: 0 0 40px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.3); }
+}
+
+.generator-section {
+    max-width: 450px;
+    width: 100%;
+    padding: 2rem 1.8rem;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px rgba(139, 92, 246, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.generator-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(130, 227, 231, 0.05) 100%);
+    border-radius: 24px;
+    z-index: -1;
+}
+
+.generator-section:hover {
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Dark Theme Styles */
+.dark-theme-section h1 {
+    font-weight: 600;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #f1f5f9 0%, #82e3e7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(130, 227, 231, 0.2);
+    animation: darkTitleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes darkTitleGlow {
+    0% { text-shadow: 0 0 20px rgba(130, 227, 231, 0.2); }
+    100% { text-shadow: 0 0 40px rgba(130, 227, 231, 0.4), 0 0 60px rgba(130, 227, 231, 0.15); }
+}
+
+.checker-section {
+    max-width: 450px;
+    width: 100%;
+    padding: 2rem 1.8rem;
+    background: rgba(30, 41, 55, 0.5);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(51, 65, 81, 0.3);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(130, 227, 231, 0.08);
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.checker-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(51, 65, 81, 0.08) 0%, rgba(30, 41, 55, 0.04) 100%);
+    border-radius: 24px;
+    z-index: -1;
+}
+
+.checker-section:hover {
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 rgba(130, 227, 231, 0.15);
+}
+
+/* Light Theme Form Elements */
+.light-theme-section .passBox {
+    width: 100%;
+    display: block;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 1rem 3.5rem 1rem 1rem;
+    margin-block: .5rem;
+    border-radius: 12px;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.light-theme-section .passBox:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.light-theme-section .passBox::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Dark Theme Form Elements */
+.dark-theme-section .passBox {
+    width: 100%;
+    display: block;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    border: 2px solid rgba(51, 65, 81, 0.3);
+    color: #f1f5f9;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 3.5rem 1rem 1rem;
+    margin-block: .5rem;
+    border-radius: 12px;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+/* Hide default password reveal button in Edge/IE */
+.dark-theme-section .passBox::-ms-reveal {
+    display: none;
+}
+
+/* Hide default password reveal button in WebKit browsers */
+.dark-theme-section .passBox::-webkit-credentials-auto-fill-button {
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+}
+
+.dark-theme-section .passBox:focus {
+    outline: none;
+    border-color: rgba(130, 227, 231, 0.5);
+    box-shadow: 0 0 20px rgba(130, 227, 231, 0.2);
+    background: rgba(15, 23, 42, 0.95);
+}
+
+.dark-theme-section .passBox::placeholder {
+    color: rgba(148, 163, 184, 0.6);
+}
+
+.inputBox {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+/* Light Theme Buttons */
+.light-theme-section .copyButton,
+.light-theme-section .togglePassword {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.light-theme-section .copyButton:hover,
+.light-theme-section .togglePassword:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Dark Theme Buttons */
+.dark-theme-section .copyButton,
+.dark-theme-section .togglePassword {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(51, 65, 81, 0.6);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    cursor: pointer;
+    color: #f1f5f9;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.dark-theme-section .copyButton:hover,
+.dark-theme-section .togglePassword:hover {
+    background: rgba(130, 227, 231, 0.15);
+    border-color: rgba(130, 227, 231, 0.4);
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 4px 12px rgba(130, 227, 231, 0.2);
+}
+
+.copyButton:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.copyButton img {
+    height: 18px;
+    width: 18px;
+    filter: brightness(1.2);
+    transition: filter 0.3s ease;
+}
+
+.togglePassword img {
+    height: 16px;
+    width: 16px;
+    filter: brightness(1.2);
+    transition: filter 0.3s ease;
+}
+
+.copyButton:hover img {
+    filter: brightness(1.5);
+}
+
+.togglePassword:hover img {
+    filter: brightness(1.5);
+}
+
+@media screen and (max-width: 500px) {
+    .passBox {
+        padding-right: 3rem;
+    }
+
+    .copyButton {
+        right: .5rem;
+    }
+}
+
+/* Light Theme Slider */
+.light-theme-section .inputSlider {
+    display: block;
+    width: 100%;
+    margin-block: 1.5rem;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.light-theme-section .inputSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s ease;
+    /* border: 2px solid #ffffff; */
+}
+
+.light-theme-section .inputSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.8), 0 0 20px rgba(168, 85, 247, 0.6);
+}
+
+.light-theme-section .inputSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%);
+    cursor: pointer;
+    /* border: 2px solid #ffffff; */
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+}
+
+/* Dark Theme Slider */
+.dark-theme-section .inputSlider {
+    display: block;
+    width: 100%;
+    margin-block: 1.5rem;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(15, 23, 42, 0.8);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.dark-theme-section .inputSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #82e3e7 0%, #6ee7b7 100%);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.dark-theme-section .inputSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 16px rgba(130, 227, 231, 0.3);
+}
+
+.dark-theme-section .inputSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #82e3e7 0%, #6ee7b7 100%);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Light Theme Form Elements */
+.light-theme-section .row input[type="checkbox"] {
+    margin-inline: .6rem;
+    width: 18px;
+    height: 18px;
+    accent-color: #ffffff;
+    cursor: pointer;
+    position: relative;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.light-theme-section .row input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.light-theme-section .row input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #8b5cf6;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.light-theme-section .sliderValue {
+    margin-inline: .6rem;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.light-theme-section .row strong {
+    margin-bottom: .2rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.light-theme-section .row label {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.light-theme-section .row label:hover {
+    color: #ffffff;
+}
+
+/* Dark Theme Form Elements */
+.dark-theme-section .row input[type="checkbox"] {
+    margin-inline: .6rem;
+    width: 18px;
+    height: 18px;
+    accent-color: #82e3e7;
+    cursor: pointer;
+    position: relative;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(51, 65, 81, 0.6);
+    border: 2px solid rgba(130, 227, 231, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.dark-theme-section .row input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #82e3e7 0%, #6ee7b7 100%);
+    border-color: #82e3e7;
+    box-shadow: 0 0 10px rgba(130, 227, 231, 0.3);
+}
+
+.dark-theme-section .row input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.dark-theme-section .sliderValue {
+    margin-inline: .6rem;
+    font-weight: 600;
+    color: #82e3e7;
+    font-size: 1.1rem;
+}
+
+.dark-theme-section .row strong {
+    margin-bottom: .2rem;
+    font-weight: 500;
+    color: #f1f5f9;
+}
+
+.dark-theme-section .row label {
+    font-weight: 400;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.dark-theme-section .row label:hover {
+    color: #82e3e7;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+}
+
+/* Light Theme Password Indicator */
+.light-theme-section .pass-indicator {
+    width: 100%;
+    position: relative;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 100vh;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme-section .pass-indicator::before {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    transition: all 0.5s ease;
+    border-radius: 100vh;
+}
+
+.light-theme-section .pass-indicator.weak::before {
+    width: 25%;
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.light-theme-section .pass-indicator.medium::before {
+    width: 60%;
+    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+.light-theme-section .pass-indicator.strong::before {
+    width: 100%;
+    background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%);
+    box-shadow: 0 0 15px rgba(15, 118, 110, 0.4);
+}
+
+/* Dark Theme Password Indicator */
+.dark-theme-section .pass-indicator {
+    width: 100%;
+    position: relative;
+    height: 8px;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 100vh;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.dark-theme-section .pass-indicator::before {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    transition: all 0.5s ease;
+    border-radius: 100vh;
+}
+
+.dark-theme-section .pass-indicator.weak::before {
+    width: 25%;
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.dark-theme-section .pass-indicator.medium::before {
+    width: 60%;
+    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+.dark-theme-section .pass-indicator.strong::before {
+    width: 100%;
+    background: linear-gradient(90deg, #82e3e7 0%, #6ee7b7 100%);
+    box-shadow: 0 0 15px rgba(130, 227, 231, 0.4);
+}
+
+/* Light Theme Generate Button */
+.light-theme-section .genBtn {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    border-radius: 16px;
+    margin-top: 1.5rem;
+    width: 100%;
+    font-size: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.light-theme-section .genBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.light-theme-section .genBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+    background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 50%, #6366f1 100%);
+}
+
+.light-theme-section .genBtn:hover::before {
+    left: 100%;
+}
+
+.light-theme-section .genBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+/* Dark Theme Generate Button */
+.dark-theme-section .genBtn {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border: 2px solid #82e3e7;
+    color: #82e3e7;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    border-radius: 16px;
+    margin-top: 1.5rem;
+    width: 100%;
+    font-size: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(130, 227, 231, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dark-theme-section .genBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(130, 227, 231, 0.08), transparent);
+    transition: left 0.5s;
+}
+
+.dark-theme-section .genBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(130, 227, 231, 0.3);
+    background: linear-gradient(135deg, #82e3e7 0%, #6ee7b7 100%);
+    color: #1e293b;
+    border-color: #6ee7b7;
+}
+
+.dark-theme-section .genBtn:hover::before {
+    left: 100%;
+}
+
+.dark-theme-section .genBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(130, 227, 231, 0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Toast notification for copy feedback */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(72, 219, 251, 0.9);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 500;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(72, 219, 251, 0.3);
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive improvements */
+@media screen and (max-width: 1200px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+
+    .light-theme-section,
+    .dark-theme-section {
+        min-height: 50vh;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .light-theme-section,
+    .dark-theme-section {
+        padding: 1rem;
+    }
+
+    .generator-section,
+    .checker-section {
+        padding: 2rem 1.5rem;
+    }
+
+    .light-theme-section h1,
+    .dark-theme-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .toast {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        transform: translateY(-100%);
+    }
+
+    .toast.show {
+        transform: translateY(0);
+    }
+}
